@@ -4,28 +4,25 @@ import Image from 'next/image'
 import BottomNavBar from '../../components/BottonNavBar'
 import {useRouter} from 'next/router'
 import Header from '../../components/Header'
-import QrScan from 'react-qr-reader'
+import dynamic from 'next/dynamic'
+
+
+const QrReader = dynamic(() => import('react-qr-reader'), {
+    ssr: false
+})
 
 function Dashboard() {
-    const [result, setResult] = useState('Scan')
+    const [result, setResult] = useState('No Result')
 
-    const handleScan = (data)=>{
+    const handleScan = data => {
         if(data){
             setResult(data)
         }
-    }       
-
-    const handleError= (err) => {
-        console.log(err)
     }
 
-    const previewStyle = {
-        height:600,
-        width:500,
-        display: 'flex',
-        "justify-content": "center"
+    const handleError = (err) => {
+        console.error(err)
     }
-    
 
     return (
         <div className="main">
@@ -36,14 +33,12 @@ function Dashboard() {
             </Head>
             <Header />
             <section className=" justify-center items-center h-screen">
-                <>
-                    <QrScan
-                        delay={300}
-                        onError={handleError}
-                        onScan={handleScan}
-                        style={{ height: 240, width: 320 }}
-                    />
-                </>
+                <QrReader
+                    delay={300}
+                    onError={handleError}
+                    onScan={handleScan}
+                    style={{ width: "100%" }}
+                />
                 <p>{result}</p>
             </section>
             <nav className="">
