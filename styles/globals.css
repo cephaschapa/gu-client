@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+html {
+  font-family: 'Quicksand', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.signup-clipped__div{
+  /* clip-path: polygon(0 8%, 100% 0, 100% 100%, 0% 100%); */
+  
+  backdrop-filter: blur(50px);
+  /* filter: blur(100px) */
+}
+
+main{
+  background:url('/bg.jpg') no-repeat center;
+  background-size: cover;
+}
