@@ -4,13 +4,15 @@ import Image from 'next/image'
 import BottomNavBar from '../../components/BottonNavBar'
 import {useRouter} from 'next/router'
 import Header from '../../components/Header'
-import dynamic from 'next/dynamic'
-import QrReader from 'react-qr-reader'
+import QrScan from 'react-qr-reader'
 
 function Dashboard() {
     const [result, setResult] = useState('Scan')
-    const handleScan = (result)=>{
-        setResult(result)
+
+    const handleScan = (data)=>{
+        if(data){
+            setResult(data)
+        }
     }       
 
     const handleError= (err) => {
@@ -35,11 +37,11 @@ function Dashboard() {
             <Header />
             <section className=" justify-center items-center h-screen">
                 <>
-                    <QrReader 
+                    <QrScan
                         delay={300}
-                        onError={this.handleError}
-                        onScan={this.handleScan}
-                        style={{ width: '100%' }}
+                        onError={handleError}
+                        onScan={handleScan}
+                        style={{ height: 240, width: 320 }}
                     />
                 </>
                 <p>{result}</p>
