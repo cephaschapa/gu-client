@@ -34,7 +34,7 @@ function Dashboard() {
     const handleScan = async data => {
         
         if(data){
-            alert(data);
+            alert("ok");
             // const res = await axios.get('http://localhost:3000/api/hello')
             // console.log(res)
             const ob = {
