@@ -34,14 +34,14 @@ function Dashboard() {
     const handleScan = async data => {
         
         if(data){
-            alert(data)
+            
             const res = await axios.get('http://localhost:3000/api/hello')
             console.log(res)
             const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = res.data
             const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
             array.push()
+            alert(productName)
             setResult(array)
-            console.log(result)
         }
     }
 
