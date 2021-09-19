@@ -31,36 +31,51 @@ function Dashboard() {
 
     
     
-    const handleScan = async data => {
+    const handleScan = data => {
         
-        if(data){
-            alert("ok");
-            // const res = await axios.get('http://localhost:3000/api/hello')
-            // console.log(res)
-            const ob = {
-                batchNumber: "AFF45678B",
-                dateProcessed: "10/10/2021",
-                productName: "Savanna Tomatos",
-                packager: "Luka Farms",
-                location: "Lusaka, Zambia",
-                managerInfo: "John Doe",
-                pesticideInfo: "Pesticide Free",
-                gmoStatus: "Non GMO",
-                inspection: "Inspected for consuption",
-                numDaysToExpire: "18",
-                freshNess: "Fresh"
-            }
-            const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = ob
-            const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
-            array.push()
-
-            console(array)
-            alert(data)
-            setResult(array)
+        const ob = {
+            batchNumber: "AFF45678B",
+            dateProcessed: "10/10/2021",
+            productName: "Savanna Tomatos",
+            packager: "Luka Farms",
+            location: "Lusaka, Zambia",
+            managerInfo: "John Doe",
+            pesticideInfo: "Pesticide Free",
+            gmoStatus: "Non GMO",
+            inspection: "Inspected for consuption",
+            numDaysToExpire: "18",
+            freshNess: "Fresh"
         }
+        const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = ob
+        const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
+        array.push()
+
+        console(array)
+        alert(data)
+        setResult(array)
     }
 
     const handleError = (err) => {
+        const ob = {
+            batchNumber: "AFF45678B",
+            dateProcessed: "10/10/2021",
+            productName: "Savanna Tomatos",
+            packager: "Luka Farms",
+            location: "Lusaka, Zambia",
+            managerInfo: "John Doe",
+            pesticideInfo: "Pesticide Free",
+            gmoStatus: "Non GMO",
+            inspection: "Inspected for consuption",
+            numDaysToExpire: "18",
+            freshNess: "Fresh"
+        }
+        const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = ob
+        const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
+        array.push()
+
+        console.log(array)
+        // alert(data)
+        setResult(array)
         console.error(err)
     }
 
@@ -82,7 +97,7 @@ function Dashboard() {
     
                 />
                 {
-                    result.length <= 0 ? <div className="grid grid-cols-1 pt-3 space-y-3 pb-20">
+                    result ? <div className="grid grid-cols-1 pt-3 space-y-3 pb-20">
                     <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
                         <p className="text-sm text-gray-400">Package Name</p>
                         {result[0]}
