@@ -66,7 +66,7 @@ function Dashboard() {
     
                 />
                 {
-                    result.length < 0 ? <div className="grid grid-cols-1 pt-3 space-y-3 pb-20">
+                    result.length <= 0 ? <div className="grid grid-cols-1 pt-3 space-y-3 pb-20">
                     <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
                         <p className="text-sm text-gray-400">Package Name</p>
                         {result[0]}
