@@ -33,16 +33,32 @@ function Dashboard() {
     
     const handleScan = async data => {
         
-        // if(data){
+        if(data){
             
-            const res = await axios.get('http://localhost:3000/api/hello')
-            console.log(res)
-            const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = res.data
+            // const res = await axios.get('http://localhost:3000/api/hello')
+            // console.log(res)
+            const ob = {
+                batchNumber: "AFF45678B",
+                dateProcessed: "10/10/2021",
+                productName: "Savanna Tomatos",
+                packager: "Luka Farms",
+                location: "Lusaka, Zambia",
+                managerInfo: "John Doe",
+                pesticideInfo: "Pesticide Free",
+                gmoStatus: "Non GMO",
+                inspection: "Inspected for consuption",
+                numDaysToExpire: "18",
+                freshNess: "Fresh",
+                halaalCe
+            }
+            const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = ob
             const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
             array.push()
+
+            console(array)
             alert(productName)
             setResult(array)
-        // }
+        }
     }
 
     const handleError = (err) => {
