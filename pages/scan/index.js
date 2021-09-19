@@ -46,7 +46,7 @@ function Dashboard() {
             <Header />
             <section className=" justify-center items-center h-screen pt-20 px-4 rounded-2xl">
                 <QrReader
-                    className="rounded-2xl p-1"
+                    className=""
                     delay={300}
                     onError={handleError}
                     onScan={handleScan}
