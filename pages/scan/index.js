@@ -33,7 +33,7 @@ function Dashboard() {
     
     const handleScan = async data => {
         
-        if(data){
+        // if(data){
             
             const res = await axios.get('http://localhost:3000/api/hello')
             console.log(res)
@@ -42,7 +42,7 @@ function Dashboard() {
             array.push()
             alert(productName)
             setResult(array)
-        }
+        // }
     }
 
     const handleError = (err) => {
