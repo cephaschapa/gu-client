@@ -5,17 +5,29 @@ import BottomNavBar from '../../components/BottonNavBar'
 import {useRouter} from 'next/router'
 import Header from '../../components/Header'
 import dynamic from 'next/dynamic'
+import axios from 'axios'
 
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
     ssr: false
 })
 
-function Dashboard() {
-    const [result, setResult] = useState('No Result')
 
-    const handleScan = data => {
+
+function Dashboard() {
+   
+    async function d(){
+        const res = await axios.get('http://localhost:3000/api/hello')
+        console.log(res)
+    }
+
+    d()
+    const [result, setResult] = useState('No Result')
+    const handleScan = async data => {
+        
         if(data){
+           
+            console.log(res)
             setResult(data)
         }
     }
@@ -32,12 +44,14 @@ function Dashboard() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <section className=" justify-center items-center h-screen">
+            <section className=" justify-center items-center h-screen pt-20 px-4 rounded-2xl">
                 <QrReader
+                    className="rounded-2xl p-1"
                     delay={300}
                     onError={handleError}
                     onScan={handleScan}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", backgroundColor: "black"}}
+    
                 />
                 <p>{result}</p>
             </section>
