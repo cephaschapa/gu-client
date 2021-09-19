@@ -12,8 +12,8 @@ export default function handler(req, res) {
       pesticideInfo: "Pesticide Free",
       gmoStatus: "Non GMO",
       inspection: "Inspected for consuption",
-      numDaysToExpire: "30/10/2021",
-      freshNess: "Good",
+      numDaysToExpire: "18",
+      freshNess: "Fresh",
       halaalCert: "Certified",
     }
   )
