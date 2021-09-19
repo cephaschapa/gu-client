@@ -48,15 +48,14 @@ function Dashboard() {
                 gmoStatus: "Non GMO",
                 inspection: "Inspected for consuption",
                 numDaysToExpire: "18",
-                freshNess: "Fresh",
-                halaalCe
+                freshNess: "Fresh"
             }
             const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = ob
             const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
             array.push()
 
             console(array)
-            alert(productName)
+            alert(data)
             setResult(array)
         }
     }
