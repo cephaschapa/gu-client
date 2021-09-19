@@ -33,6 +33,7 @@ function Dashboard() {
     
     const handleScan = data => {
         
+       if(dats){
         const ob = {
             batchNumber: "AFF45678B",
             dateProcessed: "10/10/2021",
@@ -53,9 +54,7 @@ function Dashboard() {
         console(array)
         alert(data)
         setResult(array)
-    }
-
-    const handleError = (err) => {
+       }else{
         const ob = {
             batchNumber: "AFF45678B",
             dateProcessed: "10/10/2021",
@@ -73,9 +72,14 @@ function Dashboard() {
         const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
         array.push()
 
-        console.log(array)
-        // alert(data)
+        console(array)
+        alert(data)
         setResult(array)
+       }
+    }
+
+    const handleError = (err) => {
+        alert("Please allow carema permissions")
         console.error(err)
     }
 
