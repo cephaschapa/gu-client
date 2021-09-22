@@ -5,7 +5,10 @@ import { ArrowCircleLeftIcon, ArrowLeftIcon, IdentificationIcon, LockClosedIcon,
 import {useRouter} from 'next/router'
 
 
+
 export default function Home() {
+  const [fullName, setFullName] = useState('')
+  const [username, setUsername] = useState('')
   const [form, setForm] = useState(0)
   const [active, setActive] = useState(false)
   const router = useRouter()
@@ -27,11 +30,17 @@ export default function Home() {
                 <form className="space-y-4">
                   <div className="flex space-x-2 px-4 p-3 border-2 border-gray-200 rounded-full">
                     <IdentificationIcon className="h-6 w-6 text-gray-200"/>
-                    <input type="text" className="w-full bg-transparent outline-none text-white placeholder-white" placeholder="Full Names"/>
+                    <input name="fullName" type="text" value={fullName} onChange={(e)=>{
+                        setFullName(e.target.value)
+                        console.log(fullName)
+                    }} className="w-full bg-transparent outline-none text-white placeholder-white" placeholder="Full Names"/>
                   </div>
                   <div className="flex space-x-2 px-4 p-3 border-2 border-gray-200 rounded-full">
                     <IdentificationIcon className="h-6 w-6 text-gray-200"/>
-                    <input type="text" className="w-full bg-transparent outline-none text-white placeholder-white" placeholder="Username"/>
+                    <input name="username" value={fullName} onChange={(e)=>{
+                        setUsername(e.target.value)
+                        console.log(username)
+                    }} type="text" className="w-full bg-transparent outline-none text-white placeholder-white" placeholder="Username"/>
                   </div>
                   <div className="flex space-x-2 px-4 p-3 border-2 border-gray-200 rounded-full">
                     <MailIcon className="h-6 w-6 text-gray-200"/>
