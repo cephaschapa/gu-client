@@ -34,6 +34,7 @@ function Dashboard() {
     const handleScan = data => {
         
        if(dats){
+        alert(data)
         const ob = {
             batchNumber: "AFF45678B",
             dateProcessed: "10/10/2021",
