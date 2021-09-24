@@ -16,9 +16,13 @@ import {
   MessageList,
   Thread,
   Window,
+  useChannelStateContext,
+  TypingIndicator
 } from 'stream-chat-react';
 
-import 'stream-chat-react/dist/css/index.css';
+
+import { CustomPreview } from './components/CustomPreview'
+import Header2 from '../../components/Header2'
 
 const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiY2EwMjM5MjU4YWZjM2Y3Yjc2N2ZhMGY0ZWRlZmQzMTMifQ.mFNrC9ZjUU_R4HiW6p1dyr_0qJIXrBRfGpVGrRQJ_4A';
 
@@ -61,6 +65,9 @@ function ChatHome() {
   const [chatClient, setChatClient] = useState(null);
   const [filters, setFilters] = useState();
   const [scrollY, setScrollY] = useState(0);
+  const {channel} = useChannelStateContext();
+
+  console.log(channel)
 
   function logit() {
     setScrollY(window.pageYOffset);
@@ -90,6 +97,7 @@ function ChatHome() {
         },
         userToken,
       );
+      console.log(client.user);
       // const channels = await client.queryChannels(filters, sort, options);
       const filters = { type: 'messaging', members: { $in: [client.userID] } };
       setFilters(filters);
@@ -112,12 +120,17 @@ function ChatHome() {
                 <meta name="description" content="Greenupp" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-           {/* <Header /> */}
+           <Header2 />
             <section className="w-full m-0 p-0">
             <Chat client={chatClient} theme='messaging light'>
-            <ChannelList filters={filters} sort={sort} setActiveChannelOnMount showChannelSearch/>
+             
+            <ChannelList Preview={CustomPreview} filters={filters} sort={sort} setActiveChannelOnMount showChannelSearch/>
+            
             <Channel Attachment={CustomAttachment}>
                 <Window>
+                {/* <header className="h-12 w-full bg-white border-b border-gray-300">
+                  <TypingIndicator />
+                </header> */}
                 <ChannelHeader />
                 <MessageList />
                 <div className="border-t border-gray-300" >
@@ -126,6 +139,7 @@ function ChatHome() {
                 </Window>
                 <Thread />
             </Channel>
+                
             </Chat>
             </section>
             <nav className="">

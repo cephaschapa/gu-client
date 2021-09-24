@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
 html {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   scroll-behavior: smooth;
 }
 
@@ -19,4 +19,52 @@ html {
 main{
   background:url('/bg.jpg') no-repeat center;
   background-size: cover;
+}
+
+.str-chat.messaging,
+.str-chat.commerce {
+    background-color: white !important
+}
+
+.str-chat__channel-list-messenger {
+  background-color: white !important;
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+.str-chat{
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+
+.str-chat__header-hamburger--line {
+  background: #7e7b7b !important;
+  height: 3px !important;
+}
+
+.str-chat__header-hamburger{
+  width: 40px !important;
+}
+
+.str-chat__channel-search {
+  background: white !important;
+  padding: 10 !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.str-chat__channel-search input {
+  height:50px !important;
+}
+
+.str-chat__input-flat .str-chat__textarea>textarea{
+  border-radius: 30px !important;
+}
+
+.str-chat__avatar-fallback {
+  background-color: #16a085 !important;
+}
+.str-chat__send-button {
+  /* background-color: #16a085 !important; */
+  position: relative;
+  top: -2px !important;
+  color: #16a085 !important;
 }

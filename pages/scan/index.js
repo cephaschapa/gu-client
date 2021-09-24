@@ -32,11 +32,11 @@ function Dashboard() {
     
     
     const handleScan = data => {
-        
+         
        if(dats){
         alert(data)
         const ob = {
-            batchNumber: "AFF45678B",
+            batchNumber: "AFF45678B", 
             dateProcessed: "10/10/2021",
             productName: "Savanna Tomatos",
             packager: "Luka Farms",
@@ -53,7 +53,7 @@ function Dashboard() {
         array.push()
 
         console(array)
-        alert(data)
+        // alert(data)
         setResult(array)
        }else{
         const ob = {
