@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { StreamChat } from 'stream-chat';
 import { ChannelPreviewUIComponentProps, useChatContext } from 'stream-chat-react';
 
-const CustomPreview = (props) => {
+function CustomPreview (props) {
   const { channel, setActiveChannel } = props;
   const client = StreamChat.getInstance('w8twbsn7nmpz');
   const [userName, setuserName] = useState('')
