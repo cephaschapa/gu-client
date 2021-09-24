@@ -2,17 +2,14 @@ import { UserIcon } from '@heroicons/react/outline';
 import React, {useState, useEffect} from 'react';
 import { StreamChat } from 'stream-chat';
 import { ChannelPreviewUIComponentProps, useChatContext } from 'stream-chat-react';
-// import './CustomPreview.scss';
 
-
-export const CustomPreview = (props) => {
+const CustomPreview = (props) => {
   const { channel, setActiveChannel } = props;
   const client = StreamChat.getInstance('w8twbsn7nmpz');
   const [userName, setuserName] = useState('')
   const [tone, setTone] = useState('/Messenger.mp3')
-  console.log(client.user.id)
+  // console.log(client.user.id)
   
-
   const { channel: activeChannel } = useChatContext();
 
   const selected = channel?.id === activeChannel?.id;
@@ -76,3 +73,5 @@ export const CustomPreview = (props) => {
     </>
   );
 };
+
+export default CustomPreview

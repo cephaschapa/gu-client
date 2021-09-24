@@ -21,7 +21,7 @@ import {
 } from 'stream-chat-react';
 
 
-import { CustomPreview } from './components/CustomPreview'
+import  CustomPreview  from '../../components/CustomPreview'
 import Header2 from '../../components/Header2'
 
 const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiY2EwMjM5MjU4YWZjM2Y3Yjc2N2ZhMGY0ZWRlZmQzMTMifQ.mFNrC9ZjUU_R4HiW6p1dyr_0qJIXrBRfGpVGrRQJ_4A';
