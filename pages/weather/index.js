@@ -7,7 +7,7 @@ import Header from '../../components/Header'
 import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
 import { ArrowLeftIcon, BookmarkIcon, ChevronLeftIcon, CloudIcon, LocationMarkerIcon, SaveIcon, SearchIcon, SunIcon } from '@heroicons/react/outline'
-function Store() {
+function Home() {
     const [loading, setLoading] = useState(true)
     let [color, setColor] = useState("#16a085");
 
@@ -126,4 +126,4 @@ function Store() {
     )
 }
 
-export default Store
+export default Home
