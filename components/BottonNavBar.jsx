@@ -21,7 +21,7 @@ const BottomNavBar = () =>{
                 <SunIcon
                     className="h-8 w-8 text-gray-600"
                     onClick={() => {
-                        router.push('chat/')
+                        router.push('weather/')
                     }}
                 /> 
             </div>
