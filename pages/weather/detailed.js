@@ -8,20 +8,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
 import { ArrowCircleLeftIcon, ArrowLeftIcon, BeakerIcon, BookmarkIcon, CloudIcon, EyeIcon, LocationMarkerIcon, ReceiptRefundIcon, RefreshIcon, SearchIcon, SunIcon, TrendingUpIcon } from '@heroicons/react/outline'
 function Detailed() {
-    const [loading, setLoading] = useState(true)
-    let [color, setColor] = useState("#16a085");
-
-    useEffect(() =>{
-        setInterval(() => {
-            setLoading(false)
-        }, 3000)
-    })
-
-    const override = css`
-        display: block;
-        margin: 0 auto;
-        border-color: #16a085;
-        `;
+   
     // PuffLoader
     return (
         <div className="main">
