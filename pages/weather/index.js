@@ -363,7 +363,7 @@ function Home() {
                         {/* Saturday */}
                         {day==6?<div className="flex justify-between px-3 items-center h-32 w-full bg-gray-100 rounded-2xl">
                             
-                        { //data.current.weather[0].icon afadfa
+                        { //data.current.weather[0].icon afadfa dfdf
                                     current==6? <>
                                        <div className="flex justify-center items-center">
                                         {data? <Image src={`/icons/${data.current.weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700"/>}
