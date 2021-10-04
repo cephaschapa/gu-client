@@ -8,7 +8,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
 import axios from 'axios'
 import moment from 'moment'
-import { ArrowLeftIcon, BookmarkIcon, ChevronLeftIcon, ClockIcon, CloudIcon, LocationMarkerIcon, SaveIcon, SearchIcon, SunIcon } from '@heroicons/react/outline'
+import { ArrowLeftIcon, BookmarkIcon, ChevronLeftIcon, ClockIcon, CloudIcon, LocationMarkerIcon, MicrophoneIcon, SaveIcon, SearchIcon, SunIcon } from '@heroicons/react/outline'
 
 const API_KEY = "6082c815ee7a42b5994518e03b5c0e68"
 function Home() {
@@ -77,6 +77,7 @@ function Home() {
                     <div className="flex sticky top-0 text-center w-full border-2 border-gray-200 p-4 rounded-full">
                         <SearchIcon className="h-6 w-6 text-gray-500"/>
                         <input type="search" placeholder="Search City" className="w-full outline-none px-2"/>
+                        <MicrophoneIcon className="h-6 w-6 text-gray-500"/>
                     </div>
                     <div className="">
                         {/* <Link href="weather/detailed"> */}
