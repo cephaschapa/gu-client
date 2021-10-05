@@ -2,7 +2,7 @@ import { BellIcon, CogIcon, MenuAlt1Icon, ShoppingCartIcon, SupportIcon, UserIco
 
 function Header() {
     return (
-        <header className="flex  items-center p-4 py-8 h-12 w-full bg-white border border-gray-200 fixed top-0 justify-between text-gray-600 z-50">
+        <header className="flex shadow-md items-center p-4 py-8 h-12 w-full bg-white fixed top-0 justify-between text-gray-600 z-50">
             <div className="border-2 border-gray-200 p-2 rounded-full">
                 <MenuAlt1Icon className="h-8 w-8"/>
             </div>
