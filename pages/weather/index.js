@@ -33,7 +33,7 @@ function Home() {
         .then( response  => {
             console.log("Country is : ", response);
             setLocation(response)
-          axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lat}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
+          axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
               console.log(response.data.daily[1].weather[0].icon)
               console.log(response)
               setData(response.data)
