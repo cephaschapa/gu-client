@@ -363,7 +363,7 @@ function Home() {
                         {/* Saturday */}
                         {day==6?<div className="flex justify-between px-3 items-center h-32 w-full bg-gray-100 rounded-2xl">
                             
-                        { //data.current.weather[0].icon
+                        { //data.current.weather[0].icon afadfa
                                     current==6? <>
                                        <div className="flex justify-center items-center">
                                         {data? <Image src={`/icons/${data.current.weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700"/>}
@@ -381,7 +381,7 @@ function Home() {
                                             <div className="flex space-x-2"><LocationMarkerIcon className="h-6 w-6"/><span className="font-bold pr-2">{location.region},</span> {location.country}</div>
                                             <div className="flex space-x-2 text-xs  items-center text-gray-400"><ClockIcon className="h-3 w-3"/><span className="font-bold pr-2">Updated -</span>{moment.unix(data.current.dt).fromNow()}</div>
                                         </div>
-                                    </div>
+                                    </div> 
                                     </>: <>
                                     <div className="flex justify-center items-center">
                                         {data? <Image src={`/icons/${data.daily[6].weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700"/>}
