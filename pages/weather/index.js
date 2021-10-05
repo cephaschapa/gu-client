@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 import {useState, useEffect} from 'react'
 import BottomNavBar from '../../components/BottonNavBar'
 import Header from '../../components/Header'
@@ -8,7 +9,7 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
 import axios from 'axios'
 import moment from 'moment'
-import { ArrowLeftIcon, BookmarkIcon, ChevronLeftIcon, ClockIcon, CloudIcon, LocationMarkerIcon, MicrophoneIcon, SaveIcon, SearchIcon, SunIcon } from '@heroicons/react/outline'
+import { ArrowLeftIcon, ArrowRightIcon, BookmarkIcon, ChevronLeftIcon, ClockIcon, CloudIcon, CollectionIcon, LocationMarkerIcon, MicrophoneIcon, SaveIcon, SearchIcon, SunIcon } from '@heroicons/react/outline'
 
 const API_KEY = "6082c815ee7a42b5994518e03b5c0e68"
 function Home() {
@@ -17,6 +18,7 @@ function Home() {
     const [location, setLocation] = useState()
     const [day, setDay] = useState(1)
     const [current, setCurrent] = useState(0)
+    const router = useRouter()
     let [color, setColor] = useState("#16a085");
 
     useEffect(() => {})
@@ -79,6 +81,7 @@ function Home() {
                         <input type="search" placeholder="Search City" className="w-full outline-none px-2"/>
                         <MicrophoneIcon className="h-6 w-6 text-gray-500"/>
                     </div>
+                    {/* <div className="">more</div> */}
                     <div className="">
                         {/* <Link href="weather/detailed"> */}
                             {/* Sunday */}
@@ -87,6 +90,7 @@ function Home() {
                             { //data.current.weather[0].icon
                                    current==0? <>
                                    <div className="flex justify-center items-center">
+                                       
                                        {data? <Image src={`/icons/${data.current.weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700"/>}
                                        <div className="flex items-center">
                                            
@@ -176,24 +180,36 @@ function Home() {
 
                         {/* Tuesday */}
                         {day==2?<div className="flex justify-between px-3 items-center h-32 w-full bg-gray-100 rounded-2xl">
-                                
+                                    
                         { //data.current.weather[0].icon
                                     current==2? <>
+                                        
                                        <div className="flex justify-center items-center">
-                                        {data? <Image src={`/icons/${data.current.weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700"/>}
+                                       
+                                        {data? <Image src={`/icons/${data?.current.weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700"/>}
                                         <div className="flex items-center">
                                             
                                         </div>
                                     </div>
                                     <div className="text-sm text-gray-500 font-bold">
                                         <p>Tuesday</p>
-                                        <span className="text-xs font-normal">{data.current.weather[0].description}</span>
+                                        <span className="text-xs font-normal">{data?.current.weather[0].description}</span>
                                     </div>
                                     <div className="flex flex-col space-y-3 items-end">
-                                        <div className="text-4xl text-gray-600"><span className="font-bold text-gray-600">{ Math.ceil(data.current.temp-273.15)}</span><sup>o</sup>C </div>
+                                        <div className="flex items-center space-x-3 text-4xl text-gray-600"><span className="font-bold text-gray-600">{ Math.ceil(data.current.temp-273.15)}</span><sup>o</sup>C 
+                                            <ArrowRightIcon onClick={()=>{
+                                                router.push({
+                                                    pathname: 'weather/detailed',
+                                                    query: {
+                                                        lat: location.lat,
+                                                        lon: location.lon,
+                                                    }
+                                                })
+                                            }} className="h-8 w-8 bg-gray-600 text-white rounded-full p-1" />
+                                        </div>
                                         <div className="flex flex-col justify-end items-end space-y-1">
                                             <div className="flex space-x-2"><LocationMarkerIcon className="h-6 w-6"/><span className="font-bold pr-2">{location.region},</span> {location.country}</div>
-                                            <div className="flex space-x-2 text-xs  items-center text-gray-400"><ClockIcon className="h-3 w-3"/><span className="font-bold pr-2">Updated -</span>{moment.unix(data.current.dt).fromNow()}</div>
+                                            <div className="flex space-x-2 text-xs  items-center text-gray-400"><ClockIcon className="h-3 w-3"/><span className="font-bold pr-2">Updated -</span>{moment.unix(data?.current.dt).fromNow()}</div>
                                         </div>
                                     </div>
                                     </>: <>
@@ -208,7 +224,7 @@ function Home() {
                                         <span className="text-xs font-normal">{data.daily[2].weather[0].description}</span>
                                     </div>
                                     <div className="flex flex-col space-y-3 items-end">
-                                        <div className="text-2xl text-gray-600"><span className="font-bold text-blue-600">{ Math.ceil(data.daily[2].temp.min-273.15)}</span><sup>o</sup>C <span className="font-bold text-yellow-600">{ Math.ceil(data.daily[2].temp.max-273.15)}</span><sup>o</sup>C </div>
+                                        <div className="text-2xl text-gray-600"><span className="font-bold text-blue-600">{ Math.ceil(data.daily[2].temp.min-273.15)}</span><sup>o</sup>C <span className="font-bold text-yellow-600">{ Math.ceil(data.daily[2].temp.max-273.15)}</span><sup>o</sup>C</div>
                                         <div className="flex flex-col justify-end items-end space-y-1">
                                             <div className="flex space-x-2"><LocationMarkerIcon className="h-6 w-6"/><span className="font-bold pr-2">{location.region},</span> {location.country}</div>
                                             <div className="flex space-x-2 text-xs  items-center text-gray-400"><ClockIcon className="h-3 w-3"/><span className="font-bold pr-2">Updated -</span>{moment.unix(data.daily[2].dt).fromNow()}</div>

@@ -2,12 +2,97 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
+import { useRouter } from 'next/router'
 import BottomNavBar from '../../components/BottonNavBar'
 import Header from '../../components/Header'
 import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
-import { ArrowCircleLeftIcon, ArrowLeftIcon, BeakerIcon, BookmarkIcon, CloudIcon, EyeIcon, LocationMarkerIcon, ReceiptRefundIcon, RefreshIcon, SearchIcon, SunIcon, TrendingUpIcon } from '@heroicons/react/outline'
+import { ArrowCircleLeftIcon, ArrowLeftIcon, BeakerIcon, BookmarkIcon, CloudIcon, EyeIcon, FlagIcon, LocationMarkerIcon, PaperAirplaneIcon, ReceiptRefundIcon, RefreshIcon, SearchIcon, SunIcon, TrendingUpIcon } from '@heroicons/react/outline'
+import axios from 'axios'
+
+
+const API_KEY = "6082c815ee7a42b5994518e03b5c0e68"
 function Detailed() {
+    const [location, setLocation] = useState()
+    const [position, setPosition] = useState()
+    const router = useRouter()
+
+    const {lat, lon} = router.query
+    const [data, setData]= useState()
+    useEffect(() => {
+        async function fetchData(){
+            await axios.get('https://extreme-ip-lookup.com/json/').then((pos) => {
+                // console.log(pos)
+                
+                axios.get(`https://ip-geo-location.p.rapidapi.com/ip/${pos.data.query}`,{
+                headers: {
+                    'x-rapidapi-host': 'ip-geo-location.p.rapidapi.com',
+                    'x-rapidapi-key': 'fee96f23c6msh365b9b203912988p1232dejsn23884fec28e3'
+                  }
+            }).then((loc) => {
+                // console.log(loc)
+               
+                axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${pos.data.lat}&lon=${pos.data.lon}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
+                    // console.log(response.data.daily[1].weather[0].icon)
+                    // console.log(response)
+                    setData(response.data)
+                })
+                setLocation(loc.data)
+            })
+            
+        })
+        }
+
+        fetchData()
+       
+        
+    },[])
+    
+        console.log(location)
+        console.log(data)
+    const handleDirection= (deg)=>{
+        if (deg > 0 && deg < 45) {
+            deg = "Due NNE";
+            return deg;
+          } else if (deg > 45 && deg < 90) {
+            deg = "Due NEE";
+            return deg;
+          }else if (deg == 45) {
+            deg = "Due East";
+            return deg;
+          }else if (deg == 90) {
+            deg = "Due East";
+            return deg;
+          } else if (deg > 90 && deg < 135) {
+            deg = "Due SE";
+            return deg;
+          } else if (deg > 135 && deg < 180) {
+            deg = "Due SSE";
+            return deg;
+          } else if (deg > 180 && deg < 225) {
+            deg = "Due SSW";
+            return deg;
+          } else if (deg > 225 && deg < 270) {
+            deg = "Due SWW";
+            return deg;
+          }else if (deg == 270) {
+            deg = "Due West";
+            return deg;
+          } else if (deg > 270 && deg < 315) {
+            deg = "Due NWW";
+            return deg;
+          } else if (deg > 315 && deg < 360) {
+            deg = "Due NW";
+            return deg;
+          }
+          else if (deg == 360) {
+            deg = "Due North";
+            return deg;
+          }
+          
+    }
+
+    // console.log(handleDirection(45))
    
     // PuffLoader
     return (
@@ -18,57 +103,81 @@ function Detailed() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <section className="flex flex-col pt-24 h-screen px-4">
+            <section className="flex flex-col pt-24 h-screen px-4 pb-30">
                 <div className="flex justify-between w-full">
                     <div className="">
-                        <ArrowLeftIcon className="h-6 w-6 text-gray-700"/>
+                        
+                            <ArrowLeftIcon onClick={() => router.push('/weather')} className="h-6 w-6 text-gray-700"/>
+                        
                     </div>
                     <div className="">
                         <BookmarkIcon className="h-6 w-6 text-gray-700"/>
                     </div>
                 </div>
                 <div className="flex space-x-1 py-4">
-                    <span className="text-3xl">Livingstone</span>
-                    <span className="text-gray-500">Zambia</span>
+                    {data? <>
+                        <span className="text-3xl">{location?.city.name}</span>
+                        <span className="text-gray-500">{location?.country.name}</span>
+                    </>: <><p className="p-2 bg-gray-400 rounded-full w-40 animate-pulse"></p></>}
                 </div>
-                <div className="flex overflow-auto mt-4 drop-shadow-md overflow-ellipsis">
-                    <div className="text-sm p-4 font-bold">Sun</div>
-                    <div className="text-sm bg-gray-200 p-4 rounded-full px-8 font-bold">Mon</div>
-                    <div className="text-sm p-4 font-bold">Tue</div>
-                    <div className="text-sm p-4 font-bold">Wed</div>
-                    <div className="text-sm p-4 font-bold">Thu</div>
-                    <div className="text-sm p-4 font-bold">Fri</div>
-                    <div className="text-sm p-4 font-bold">Sat</div>
-                </div>
+                <p>Forecast Overview</p>
                 <div className="flex flex-col items-center justify-center h-60">
-                    <CloudIcon className="h-32 w-32 text-gray-700"/>
-                    <p className="text-6xl font-bold text-gray-500">24<sup>o</sup></p>
+                {data? <Image src={`/icons/${data?.current.weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700 animate-pulse"/>}
+                {data? 
+                    <>
+                        <p className="text-6xl font-bold text-gray-500">{ Math.ceil(data?.current.temp-273.15)}<sup>o</sup>C</p>
+                            <div className="flex p-2 w-full items-center justify-around">
+                                <p className="text-md text-gray-500">{"Feels like "+ Math.ceil(data?.current.feels_like-273.15)}<sup>o</sup>C</p>
+                                <p className="text-md text-gray-500">{data?.current.weather[0].description}</p>
+                            </div>
+                    </>
+                    :
+                    <>
+                        <p className="p-2 mb-2 bg-gray-400 rounded-full w-40 animate-pulse"></p>
+                        <p className="p-2 bg-gray-400 rounded-full w-40 animate-pulse"></p>
+                    </>
+                    }
                 </div>
-                <div className="flex flex-col h-60 rounded-2xl w-full bg-gray-100 p-4 justify-between">
-                    <div className="flex justify-around items-center">
+                {/* <p>Hourly</p>
+                <div className="flex h-12 overflow-auto scrollbar-none mt-4 drop-shadow-md mb-5">
+                    <div className="flex items-center text-sm p-4 font-bold">Sun</div>
+                    <div className="flex items-center text-sm bg-gray-200 p-4 rounded-full px-8 font-bold">Mon</div>
+                    <div className="flex items-center text-sm p-4 font-bold">Tue</div>
+                    <div className="flex items-center text-sm p-4 font-bold">Wed</div>
+                    <div className="flex items-center text-sm p-4 font-bold">Thu</div>
+                    <div className="flex items-center text-sm p-4 font-bold">Fri</div>
+                    <div className="flex items-center text-sm p-4 font-bold">Sat</div>
+                </div> */}
+                <div className="grid grid-cols-3 gap-3 h-auto rounded-2xl w-full bg-gray-100 p-3 items-baseline">
+
+                        <div className="flex items-center justify-center flex-col">
+                            <CloudIcon className="h-6 w-6 text-gray-500"/>
+                            <p className="text-md text-gray-500">{Math.ceil(data?.current.dew_point-273.15)}<sup>o</sup>C</p>
+                            <p className="text-gray-400">Dew Point</p>
+                        </div>
                         <div className="flex items-center justify-center flex-col">
                             <ReceiptRefundIcon className="h-6 w-6 text-gray-500"/>
-                            <p>621 hps</p>
+                            <p className="text-md text-gray-500">{Math.ceil(data?.current.pressure)+" hPa"}</p>
                             <p className="text-gray-400">Pressure</p>
                         </div>
                         <div className="flex items-center justify-center flex-col">
                             <RefreshIcon className="h-6 w-6 text-gray-500"/>
-                            <p>200 mph</p>
+                            <p className="text-md text-gray-500">{Math.ceil(data?.current.wind_speed)+" Mph"}</p>
                             <p className="text-gray-400">Wind</p>
                         </div>
+
                         <div className="flex items-center justify-center flex-col">
-                            <EyeIcon className="h-6 w-6 text-gray-500"/>
-                            <p>44 m</p>
+                            <EyeIcon className="h-6 w-6 gap-2 text-gray-500"/>
+                            <p className="text-md text-gray-500">{Math.ceil(data?.current.visibility)}</p>
                             <p className="text-gray-400">VIsibility</p>
                         </div>
-                    </div>
-                    <div className="divider bg-gray-300 h-0.5"></div>
-                    <div className="flex justify-around items-center">
+                                      
                         <div className="flex items-center justify-center flex-col">
                             <BeakerIcon className="h-6 w-6 text-gray-500"/>
-                            <p>75%</p>
+                            <p className="text-md text-gray-500">{Math.ceil(data?.current.humidity)+" %"}</p>
                             <p className="text-gray-400">Humidity</p>
                         </div>
+
                         <div className="flex items-center justify-center flex-col">
                             <TrendingUpIcon className="h-6 w-6 text-gray-500"/>
                             <p>8 mph</p>
@@ -76,10 +185,21 @@ function Detailed() {
                         </div>
                         <div className="flex items-center justify-center flex-col">
                             <SunIcon className="h-6 w-6 text-gray-500"/>
-                            <p>3</p>
+                            <p className="text-md text-gray-500">{Math.ceil(data?.current.uvi)}</p>
                             <p className="text-gray-400">UV</p>
                         </div>
-                    </div>
+                        
+                        <div className="flex items-center justify-center flex-col">
+                            <PaperAirplaneIcon className="h-6 w-6 text-gray-500"/>
+                            <p className="text-md text-gray-500">{handleDirection(data?.current.wind_deg)}</p>
+                            <p className="text-gray-400 text-center">Wind Direction</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                            <FlagIcon className="h-6 w-6 text-gray-500"/>
+                            <p>{Math.ceil(data?.current.wind_gust)+" Mph"}</p>
+                            <p className="text-gray-400">Wind Gust</p>
+                        </div>
+                        
                 </div>
             </section>
             <nav className="">
