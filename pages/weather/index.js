@@ -196,7 +196,7 @@ function Home() {
                                         <span className="text-xs font-normal">{data?.current.weather[0].description}</span>
                                     </div>
                                     <div className="flex flex-col space-y-3 items-end">
-                                        <div className="flex items-center space-x-3 text-4xl text-gray-600"><span className="font-bold text-gray-600">{ Math.ceil(data.current.temp-273.15)}</span><sup>o</sup>C 
+                                        <div className="flex items-center space-x-3 text-4xl text-gray-600"><span className="font-bold text-gray-600">{ Math.ceil(data?.current.temp-273.15)}</span><sup>o</sup>C 
                                             <ArrowRightIcon onClick={()=>{
                                                 router.push({
                                                     pathname: 'weather/detailed',
