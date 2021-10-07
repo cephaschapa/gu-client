@@ -130,11 +130,11 @@ function Home() {
                                 <div className="flex w-full items-center space-x-2 overflow-auto scrollbar-none" >
                                     <div className="flex justify-between px-4 items-center h-32 w-3/4 bg-gray-100 rounded-2xl">
                                         <div className="flex flex-col space-y-3 items-start">
-                                            <div className="text-3xl"><span className="font-bold text text-gray-700">19</span><sup>o</sup>C <span className="text-sm">Cloudy</span></div>
+                                            <div className="text-3xl"><span className="font-bold text text-gray-700">{Math.ceil(data?.current.temp-273.15)}</span><sup>o</sup>C <span className="text-sm">Cloudy</span></div>
                                             <div className="flex space-x-2"><LocationMarkerIcon className="h-6 w-6"/><span className="font-bold pr-2">Lusaka,</span> Zambia</div>
                                         </div>
                                         <div className="">
-                                            <CloudIcon className="h-20 w-20 text-gray-700"/>
+                                            <SunIcon className="h-20 w-20 text-yellow-300 "/>
                                         </div>                  
                                     </div>
                                     <div className="flex justify-between px-4 items-center h-32 w-3/4 bg-gray-100 rounded-2xl">
