@@ -15,7 +15,10 @@ html {
   backdrop-filter: blur(50px);
   /* filter: blur(100px) */
 }
-
+.detailed-bg{
+  background: url('/detailed-bg.jpg') no-repeat center;
+  background-size: cover;
+}
 main{
   background:url('/bg.jpg') no-repeat center;
   background-size: cover;

@@ -152,7 +152,7 @@ function Detailed() {
 
                         <div className="flex items-center justify-center flex-col">
                             <CloudIcon className="h-6 w-6 text-gray-500"/>
-                            <p className="text-md text-gray-500">{Math.ceil(data?.current.dew_point-273.15)}<sup>o</sup>C</p>
+                            {data?<p className="text-md text-gray-500">{Math.ceil(data?.current.dew_point-273.15)}<sup>o</sup>C</p>:<p className="p-1 bg-gray-200 rounded-full w-20 animate-pulse"></p>}
                             <p className="text-gray-400">Dew Point</p>
                         </div>
                         <div className="flex items-center justify-center flex-col">
