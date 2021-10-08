@@ -28,7 +28,7 @@ function Header() {
             <header className="flex  shadow-md items-center p-4 px-2 py-8 h-12 w-full bg-white fixed top-0 justify-between text-gray-600 z-50">
                 <div className="p-2 flex items-center justify-center rounded-full space-x-2">
                     <UserIcon className="h-9 w-9 rounded-full bg-gray-600 text-white p-1"/>
-                    <p className="font-bold">Moono Mbinji</p>
+                    <p className="font-bold">Cephas Chapa (I am)</p>
                     <BadgeCheckIcon className="h-5 w-5  rounded-full text-green-600"/>
                 </div>
                 <div className="flex space-x-4">

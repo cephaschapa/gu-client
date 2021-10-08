@@ -9,8 +9,9 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
 import axios from 'axios'
 import moment from 'moment'
-import { ArrowLeftIcon, ArrowRightIcon, BookmarkIcon, ChevronLeftIcon, ClockIcon, CloudIcon, CollectionIcon, LocationMarkerIcon, MicrophoneIcon, SaveIcon, SearchIcon, SunIcon } from '@heroicons/react/outline'
+import { ArrowLeftIcon, ArrowRightIcon, BookmarkIcon, ChevronLeftIcon, ClockIcon, CloudIcon, CollectionIcon, LocationMarkerIcon, MicrophoneIcon, SaveIcon, SearchIcon, SunIcon, XIcon } from '@heroicons/react/outline'
 import WeatherCard from '../../components/WeatherCard'
+import cities from 'cities.json'
 
 const API_KEY = "6082c815ee7a42b5994518e03b5c0e68"
 function Home() {
@@ -20,9 +21,32 @@ function Home() {
     const [day, setDay] = useState(1)
     const [current, setCurrent] = useState(0)
     const router = useRouter()
+    const [overlay, setOverlay] = useState(false)
+    const [query, setQuery] = useState('')
+    
+    // const [result, setResult] = useState('')
     let [color, setColor] = useState("#16a085");
+    // console.log(cities)
+    let result = ''
+    let city_ = ''
+    
+    useEffect(() => {
+        
+    },[])
+    cities.forEach(el=> {
+        if(el.name === query){
+            // setResult(el.name)
+            city_ = el.name
 
-    useEffect(() => {})
+            result = <> <LocationMarkerIcon className="h-6 w-6"/> {el.name}, {el.country} </>
+            console.log(el)
+            console.log(city_)
+        } else{    
+    } })
+
+    
+
+    
 
     useEffect(() =>{
         setInterval(() => {
@@ -70,16 +94,45 @@ function Home() {
             {loading? "": <Header />}
             <section className="flex justify-center items-center h-screen">
                 {
+                    overlay? 
+                        <div className="fixed top-0 h-screen z-40 w-full bg-white backdrop-filter backdrop-blur-md bg-opacity-30 p-4">
+                            <div className="relative top-52  space-y-2">
+                                <p className="font-bold">Search Results</p>
+                                <Link href={`weather/c?city=${city_}`}> 
+                                    <div className="flex space-x-3">
+                                        {result}
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>: null
+                }
+                {
                     loading ? <div className="flex flex-col justify-center">
                     <p className="text-3xl text-green-500">Greenupp Weather</p>
                     <p className="text-center mb-10 text-gray-500">Precision Weather</p>
                     <PuffLoader color={color} loading={loading} css={override} size={60} />
                 </div>:
+                
                 <div className="flex flex-col h-screen w-full relative pt-20 px-4 space-y-5">
                     <p className="text-3xl">Hi Moono!</p>
-                    <div className="flex sticky top-0 text-center w-full border-2 border-gray-200 p-4 rounded-full">
-                        <SearchIcon className="h-6 w-6 text-gray-500"/>
-                        <input type="search" placeholder="Search City" className="w-full outline-none px-2"/>
+                    {
+                        overlay ? 
+                        <div className="flex fixed items-center justify-between w-full top-16 z-40 pr-8">
+                            <p className="text-3xl text-gray-500">Search Location</p>
+                            <XIcon onClick={() =>{setOverlay(false);}} className="h-8 w-8" />
+                        </div>:null
+                    }
+                    <div className={`${overlay? "fixed top-32": ''} flex sticky top-0 text-center w-full border-2 border-gray-200 z-40 p-4 rounded-full`}>
+                        <SearchIcon className={`${overlay? 'z-50': ''} "h-6 w-6 text-gray-500 z-50"`}/>
+                        <input 
+                            value={query}
+                            onChange={(e)=>{
+                                setQuery(e.target.value)
+                            }}
+                            type="search" onClick={()=>{
+                            setOverlay(true)
+                            // console.log(overlay)
+                        }} placeholder={location.city + ", " + location.country} className="w-full outline-none px-2 bg-transparent"/>
                         <MicrophoneIcon className="h-6 w-6 text-gray-500"/>
                     </div>
                    
