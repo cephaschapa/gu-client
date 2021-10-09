@@ -25,7 +25,7 @@ const WeatherCard = ({day, data, location, current}) => {
                             {data? <Image src={`/icons/${data?.current.weather[0].icon}.png`} height={80} width={80} className=""/>:<CloudIcon className="h-20 w-20 text-gray-700 animate-pulse"/>}
                             <div className="text-sm text-gray-500 font-bold">
                             <p>{day.toUpperCase()}</p>
-                            <span className="text-xs font-normal">{(data?.current.weather[0].description).toUpperCase()}</span>
+                            <span className="text-xs font-normal">{(data?.current.weather[0].description)}</span>
                         </div>
                         </div>
                         
@@ -50,7 +50,7 @@ const WeatherCard = ({day, data, location, current}) => {
                         <div className="flex justify-center items-center border">
                             {data? <Image src={`/icons/${data?.daily[current].weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700"/>}
                             <div className="text-sm text-gray-500 font-bold">
-                            <p className="text">{day.toUpperCase()}</p>
+                            <p className="text">{day}</p>
                             {data? <span className="text-xs font-normal">{(data?.daily[current].weather[0].description).toUpperCase()}</span>: ''}
                         </div>
                         </div>
