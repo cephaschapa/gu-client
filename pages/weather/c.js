@@ -7,7 +7,7 @@ import BottomNavBar from '../../components/BottonNavBar'
 import Header from '../../components/Header'
 import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
-import { ArrowCircleLeftIcon, ArrowLeftIcon, BeakerIcon, BookmarkIcon, CloudIcon, EyeIcon, FlagIcon, LocationMarkerIcon, PaperAirplaneIcon, ReceiptRefundIcon, RefreshIcon, SearchIcon, SunIcon, TrendingUpIcon } from '@heroicons/react/outline'
+import { ArrowCircleLeftIcon, ArrowLeftIcon, BeakerIcon, BookmarkIcon, ClockIcon, CloudIcon, EyeIcon, FlagIcon, LocationMarkerIcon, PaperAirplaneIcon, ReceiptRefundIcon, RefreshIcon, SearchIcon, SunIcon, TrendingUpIcon } from '@heroicons/react/outline'
 import axios from 'axios'
 
 
@@ -102,6 +102,19 @@ function City({city_}) {
           
     }
 
+    const convertToHours = (unix) =>{
+        let date = new Date(unix*1000)
+        let hours = date.getHours()
+        let minutes = "0"+ date.getMinutes()
+        let seconds = "0"+ date.getSeconds()
+
+        var time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        return time
+    }
+
+    const timezoneOffset = ()=>{let date = new Date(); return date.getTimezoneOffset()}
+
+
     // console.log(handleDirection(45))
    
     // PuffLoader
@@ -113,7 +126,7 @@ function City({city_}) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <section className="flex flex-col pt-24 h-screen px-4 pb-30">
+            <section className="flex flex-col pt-24 h-screen px-4 pb-20 overflow-auto">
                 <div className="flex justify-between w-full">
                     <div className="">
                         
@@ -207,10 +220,33 @@ function City({city_}) {
                         </div>
                         <div className="flex items-center justify-center flex-col">
                             <FlagIcon className="h-6 w-6 text-gray-500"/>
-                            <p>{Math.ceil(data?.wind.gust)+" Mph"}</p>
+                            <p>{!data?.wind.gust? 'Na': Math.ceil(data?.wind.gust)  + " Mps"}</p>
                             <p className="text-gray-400">Wind Gust</p>
                         </div>
                         
+                </div>
+
+                {/* Sunrise and sunset */}
+                <div className="grid grid-cols-3 gap-3 mt-2 h-auto rounded-2xl w-full bg-gray-100 p-3 items-baseline">
+
+                        <div className="flex items-center justify-center flex-col">
+                            <SunIcon className="h-6 w-6 text-yellow-500"/>
+                            <div className="divider p-0.5 bg-yellow-500 mb-2 w-6"></div>
+                            {data?<p className="text-md text-gray-500">{convertToHours(data?.sys.sunrise)}</p>:<p className="p-1 bg-gray-200 rounded-full w-20 animate-pulse"></p>}
+                            <p className="text-gray-400">Sunrise</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                            <SunIcon className="h-6 w-6 text-yellow-600"/>
+                            <div className="divider p-0.5 bg-yellow-600 mb-2 w-6"></div>
+                            {data?<p className="text-md text-gray-500">{convertToHours(data?.sys.sunset)}</p>:<p className="p-1 bg-gray-200 rounded-full w-20 animate-pulse"></p>}
+                            <p className="text-gray-400">Sunset</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                            <ClockIcon className="h-6 w-6 text-yellow-600"/>
+                            <div className="divider p-0.5 bg-yellow-600 mb-2 w-6"></div>
+                            {data?<p className="text-md text-gray-500">{timezoneOffset()}</p>:<p className="p-1 bg-gray-200 rounded-full w-20 animate-pulse"></p>}
+                            <p className="text-gray-400 text-center">Timezone Offset</p>
+                        </div>
                 </div>
             </section>
             <nav className="">

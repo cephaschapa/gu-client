@@ -7,15 +7,23 @@ import BottomNavBar from '../../components/BottonNavBar'
 import Header from '../../components/Header'
 import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
-import { ArrowCircleLeftIcon, ArrowLeftIcon, BeakerIcon, BookmarkIcon, CloudIcon, EyeIcon, FlagIcon, LocationMarkerIcon, PaperAirplaneIcon, ReceiptRefundIcon, RefreshIcon, SearchIcon, SunIcon, TrendingUpIcon } from '@heroicons/react/outline'
+import { ArrowCircleLeftIcon, ArrowLeftIcon, BeakerIcon, BookmarkIcon, ClockIcon, CloudIcon, EyeIcon, FlagIcon, LocationMarkerIcon, PaperAirplaneIcon, ReceiptRefundIcon, RefreshIcon, SearchIcon, SunIcon, TrendingUpIcon } from '@heroicons/react/outline'
+import { HeartIcon} from '@heroicons/react/solid'
 import axios from 'axios'
+import moment from 'moment'
 
+// import Dexie from 'dexie'
+// import {useLiveQuery} from 'dexie-react-hooks'
 
 const API_KEY = "6082c815ee7a42b5994518e03b5c0e68"
 function Detailed() {
+    
     const [location, setLocation] = useState()
     const [position, setPosition] = useState()
+    const [liked, setLiked] = useState(false)
     const router = useRouter()
+    // const db = new Dexie('Weather')
+    
 
     const {lat, lon} = router.query
     const [data, setData]= useState()
@@ -92,9 +100,24 @@ function Detailed() {
           
     }
 
+    const convertToHours = (unix) =>{
+        let date = new Date(unix*1000)
+        let hours = date.getHours()
+        let minutes = "0"+ date.getMinutes()
+        let seconds = "0"+ date.getSeconds()
+
+        var time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        return time
+    }
+
+    const timezoneOffset = ()=>{let date = new Date(); return date.getTimezoneOffset()}
+
     // console.log(handleDirection(45))
    
     // PuffLoader
+
+    // Handle Indexed DB Storage
+    
     return (
         <div className="main">
             <Head>
@@ -103,7 +126,7 @@ function Detailed() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <section className="flex flex-col pt-24 h-screen px-4 pb-30">
+            <section className="flex flex-col pt-24 h-screen px-4 pb-20 overflow-auto">
                 <div className="flex justify-between w-full">
                     <div className="">
                         
@@ -111,18 +134,31 @@ function Detailed() {
                         
                     </div>
                     <div className="">
-                        <BookmarkIcon className="h-6 w-6 text-gray-700"/>
+                        <BookmarkIcon onClick={()=>{ alert('hello')}} className="h-6 w-6 text-gray-700"/>
                     </div>
                 </div>
-                <div className="flex space-x-1 py-4">
+                <div className="flex space-x-1">
                     {data? <>
-                        <span className="text-3xl">{location?.city.name}</span>
-                        <span className="text-gray-500">{location?.country.name}</span>
+                        <div className="flex space-x-1 py-4">
+                            <span className="text-3xl">{location?.city.name}</span>
+                            <span className="text-gray-500">{location?.country.name}</span>
+                            
+                        </div>
+                        
                     </>: <><p className="p-2 bg-gray-400 rounded-full w-40 animate-pulse"></p></>}
                 </div>
                 <p>Forecast Overview</p>
                 <div className="flex flex-col items-center justify-center h-60">
-                {data? <Image src={`/icons/${data?.current.weather[0].icon}.png`} height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700 animate-pulse"/>}
+                    <div className="w-full flex items-end justify-end">
+                        <HeartIcon onClick={()=>{ 
+                                if(!liked){
+                                    setLiked(true)
+                                }else{
+                                    setLiked(false)
+                                }
+                            ;}} className={`${liked? 'text-green-500':'text-gray-500'} "h-6 w-6 text-gray-700"`}/>
+                    </div>
+                {data? <Image src={`/icons/${data?.current.weather[0].icon}.png`} className="animate-none " height={80} width={80}/>:<CloudIcon className="h-20 w-20 text-gray-700 animate-pulse"/>}
                 {data? 
                     <>
                         <p className="text-6xl font-bold text-gray-500">{ Math.ceil(data?.current.temp-273.15)}<sup>o</sup>C</p>
@@ -148,6 +184,8 @@ function Detailed() {
                     <div className="flex items-center text-sm p-4 font-bold">Fri</div>
                     <div className="flex items-center text-sm p-4 font-bold">Sat</div>
                 </div> */}
+
+                {/* Detailed Overcast */}
                 <div className="grid grid-cols-3 gap-3 h-auto rounded-2xl w-full bg-gray-100 p-3 items-baseline">
 
                         <div className="flex items-center justify-center flex-col">
@@ -156,13 +194,18 @@ function Detailed() {
                             <p className="text-gray-400">Dew Point</p>
                         </div>
                         <div className="flex items-center justify-center flex-col">
+                            <CloudIcon className="h-6 w-6 text-gray-500"/>
+                            <p>{data?.current.clouds}</p>
+                            <p className="text-gray-400">Clouds</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
                             <ReceiptRefundIcon className="h-6 w-6 text-gray-500"/>
-                            <p className="text-md text-gray-500">{Math.ceil(data?.current.pressure)+" hPa"}</p>
+                            <p className="text-md text-gray-500">{data?.current.pressure +" hPa"}</p>
                             <p className="text-gray-400">Pressure</p>
                         </div>
                         <div className="flex items-center justify-center flex-col">
                             <RefreshIcon className="h-6 w-6 text-gray-500"/>
-                            <p className="text-md text-gray-500">{Math.ceil(data?.current.wind_speed)+" Mph"}</p>
+                            <p className="text-md text-gray-500">{data?.current.wind_speed+" Mph"}</p>
                             <p className="text-gray-400">Wind</p>
                         </div>
 
@@ -178,11 +221,7 @@ function Detailed() {
                             <p className="text-gray-400">Humidity</p>
                         </div>
 
-                        <div className="flex items-center justify-center flex-col">
-                            <TrendingUpIcon className="h-6 w-6 text-gray-500"/>
-                            <p>8 mph</p>
-                            <p className="text-gray-400">Air Quality</p>
-                        </div>
+                        
                         <div className="flex items-center justify-center flex-col">
                             <SunIcon className="h-6 w-6 text-gray-500"/>
                             <p className="text-md text-gray-500">{Math.ceil(data?.current.uvi)}</p>
@@ -200,6 +239,29 @@ function Detailed() {
                             <p className="text-gray-400">Wind Gust</p>
                         </div>
                         
+                </div>
+
+                {/* Sunrise and sunset */}
+                <div className="grid grid-cols-3 gap-3 mt-2 h-auto rounded-2xl w-full bg-gray-100 p-3 items-baseline">
+
+                        <div className="flex items-center justify-center flex-col">
+                            <SunIcon className="h-6 w-6 text-yellow-500"/>
+                            <div className="divider p-0.5 bg-yellow-500 mb-2 w-6"></div>
+                            {data?<p className="text-md text-gray-500">{convertToHours(data?.current.sunrise)}</p>:<p className="p-1 bg-gray-200 rounded-full w-20 animate-pulse"></p>}
+                            <p className="text-gray-400">Sunrise</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                            <SunIcon className="h-6 w-6 text-yellow-600"/>
+                            <div className="divider p-0.5 bg-yellow-600 mb-2 w-6"></div>
+                            {data?<p className="text-md text-gray-500">{convertToHours(data?.current.sunset)}</p>:<p className="p-1 bg-gray-200 rounded-full w-20 animate-pulse"></p>}
+                            <p className="text-gray-400">Sunset</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                            <ClockIcon className="h-6 w-6 text-yellow-600"/>
+                            
+                            {data?<p className="text-md text-gray-500">{timezoneOffset()}</p>:<p className="p-1 bg-gray-200 rounded-full w-20 animate-pulse"></p>}
+                            <p className="text-gray-400 text-center">Timezone Offset</p>
+                        </div>
                 </div>
             </section>
             <nav className="">
