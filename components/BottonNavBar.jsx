@@ -5,45 +5,59 @@ import { BellIcon, ChatIcon, CubeIcon, CubeTransparentIcon, HashtagIcon, Shoppin
 
 const BottomNavBar = () =>{
     const router = useRouter()
+    console.log(router.pathname)
+    const path = router.pathname
     return (
-        <div className="flex bottom-0 bg-white border-t border-gray-200 h-16 w-full left-0 items-center justify-between p-4 fixed">
-            <div className="">
+        <div className="flex bottom-0 bg-white border-t border-gray-200 h-16 w-full left-0 items-center justify-around p-4 fixed z-40">
+            <div className="flex flex-col items-center">
                 <CubeTransparentIcon
-                    className="h-8 w-8 text-gray-600 "
+                    className="h-6 w-6 text-gray-500 "
                     onClick={
                         () => {
                             router.push('scan/')
                         }
                     }
-                /> 
+                />
+                {
+                    path==='/scan'? <div className="h-2 w-2 rounded-full bg-green-600 absolute top-12"></div>:null
+                }
             </div>
-            <div className="">
+            <div className="flex flex-col items-center">
                 <SunIcon
-                    className="h-8 w-8 text-gray-600"
+                    className="h-6 w-6 text-gray-500"
                     onClick={() => {
                         router.push('weather/')
                     }}
                 /> 
+                {
+                    path==='/weather'? <div className="h-2 w-2 rounded-full bg-green-600 absolute top-12"></div>:null
+                }
             </div>
-            <div className="flex border-2 border-gray-200 h-20 w-20 -mt-6 bg-white items-center justify-center rounded-full">
+            <div className="flexflex flex-col items-center justify-center rounded-full">
                 <ShoppingBagIcon
-                    className="h-8 w-8 text-gray-600"
+                    className="h-6 w-6 text-gray-500"
                     onClick={() => {
                         router.push('chat/')
                 }}
                 /> 
+                {
+                    path==='/chat'? <div className="h-2 w-2 rounded-full bg-green-600 absolute top-12"></div>:null
+                }
             </div>
-            <div className="">
+            <div className="flex flex-col items-center">
                 <HashtagIcon
-                    className="h-8 w-8 text-gray-600"
+                    className="h-6 w-6 text-gray-500"
                     onClick={() => {
                         router.push('activity/')
                     }}
-                /> 
+                />
+                {
+                    path==='/activity'? <div className="h-2 w-2 rounded-full bg-green-600 absolute top-12"></div>:null
+                }
             </div>
             <div className="">
                 <ChatIcon
-                    className="h-8 w-8 text-gray-600"
+                    className="h-6 w-6 text-gray-500"
                     onClick={() => {
                             router.push('chat/')  
                         }

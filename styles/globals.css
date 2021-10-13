@@ -8,7 +8,10 @@ html {
   font-family: 'Quicksand', sans-serif !important;
   scroll-behavior: smooth;
 }
-
+.stories{
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: auto;
+}
 .signup-clipped__div{
   /* clip-path: polygon(0 8%, 100% 0, 100% 100%, 0% 100%); */
   
