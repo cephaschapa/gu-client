@@ -5,7 +5,7 @@ import { BellIcon, ChatIcon, CubeIcon, CubeTransparentIcon, HashtagIcon, Shoppin
 
 const BottomNavBar = () =>{
     const router = useRouter()
-    console.log(router.pathname)
+    // console.log(router.pathname)
     const path = router.pathname
     return (
         <div className="flex bottom-0 bg-white border-t border-gray-200 h-16 w-full left-0 items-center justify-around p-4 fixed z-40">

@@ -8,8 +8,10 @@ import PuffLoader from "react-spinners/PuffLoader";
 import { css } from "@emotion/react";
 import { AdjustmentsIcon, ChartBarIcon, ChatAltIcon, DotsHorizontalIcon, DotsVerticalIcon, HeartIcon, NewspaperIcon, PaperAirplaneIcon, PaperClipIcon, PhotographIcon, PlusIcon, RefreshIcon, ShareIcon, TrendingUpIcon, UserIcon, ViewListIcon } from '@heroicons/react/outline'
 import NewsCard from '../../components/NewsCard'
+// import NewsCrawler from 'news-crawler'
 
 function Activity() {
+    // console.log(NewsCrawler)
     const [loading, setLoading] = useState(true)
     const [tab, setTab] = useState(1)
     let [color, setColor] = useState("#16a085");
