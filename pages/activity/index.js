@@ -297,12 +297,12 @@ function Activity() {
                     tab == 1? <>
                         <p className="pt-10 text-xl p-2"></p>
                         {/* News posts */}
-                        <NewsCard image="/bg.jpg" title="" icon="/bg.jpg" source="Climate Analysis" title="How climate has negatively affected farming"/>
-                        <NewsCard image="/b1.jpg" title="" icon="/b1.jpg" source="IoTex" title="Blockchain and Supply Chain"/>
-                        <NewsCard image="/b2.jpg" title="" icon="/bg.jpg" source="Greenupp" title="How to farm in the 21 centuary"/>
-                        <NewsCard image="/sp.jpg" title="" icon="/sp (1).jpg" source="Greenupp" title="Greenupp sends satellite on SpaceX startship rocket."/>
-                        <NewsCard image="/bg.jpg" title="" icon="/bg.jpg" source="Climate Analysis" title="How climate has negatively affected farming"/>
-                        <NewsCard image="/bg.jpg" title="" icon="/bg.jpg" source="Climate Analysis" title="How climate has negatively affected farming"/>
+                        <NewsCard image="/bg.jpg" icon="/bg.jpg" source="Climate Analysis" title="How climate has negatively affected farming"/>
+                        <NewsCard image="/b1.jpg" icon="/b1.jpg" source="IoTex" title="Blockchain and Supply Chain"/>
+                        <NewsCard image="/b2.jpg" icon="/bg.jpg" source="Greenupp" title="How to farm in the 21 centuary"/>
+                        <NewsCard image="/sp.jpg" icon="/sp (1).jpg" source="Greenupp" title="Greenupp sends satellite on SpaceX startship rocket."/>
+                        <NewsCard image="/bg.jpg" icon="/bg.jpg" source="Climate Analysis" title="How climate has negatively affected farming"/>
+                        <NewsCard image="/bg.jpg" icon="/bg.jpg" source="Climate Analysis" title="How climate has negatively affected farming"/>
                     </>:null
                 }
                 
