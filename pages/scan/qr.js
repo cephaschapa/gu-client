@@ -33,7 +33,7 @@ function Qr() {
 
     const handleScan = data => {   
        if(data !== null) {
-            router.push(`scan/results?data=${data}`)
+            router.replace(`scan/results?data=${data}`)
        }
     }
 
