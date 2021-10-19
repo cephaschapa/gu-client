@@ -15,7 +15,7 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
 
 
 
-function Qr() {
+function Results() {
     const [result, setResult] = useState([])
     const router = useRouter()
     useEffect(() => {
@@ -31,9 +31,10 @@ function Qr() {
         
     }, []);
 
-    const handleScan = data => {   
-       console.log(data)   
-       router.push(`/results?=${data}`)
+    const handleScan = data => {
+         
+    //    alert(data)
+       router.push('/results')
     }
 
     const handleError = (err) => {
@@ -51,21 +52,7 @@ function Qr() {
             </Head>
             <Header />
             <section className="h-screen pt-16 rounded-2xl">
-                
-                <div className="">
-                    <QrReader
-                        className=""
-                        delay={300}
-                        onError={handleError}
-                        onScan={handleScan}
-                        style={{ width: "100%", backgroundColor: "black"}}
-                    />
-                </div>
-                <div className="flex justify-center py-5">
-                    <button onClick={() =>{
-                        router.push('/scan')
-                    }}  className="rounded-full shadow-md bg-green-600 w-1/2 p-4 text-white">Cancel Scan</button>
-                </div>
+               <p>Results</p>               
             </section>
             
             
@@ -73,4 +60,4 @@ function Qr() {
     )
 }
 
-export default Qr
+export default Results
