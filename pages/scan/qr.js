@@ -20,27 +20,22 @@ function Qr() {
     const router = useRouter()
     useEffect(() => {
         async function d(){
-            // const res = await axios.get('http://localhost:3000/api/hello')
-            // console.log(res)
-            // const {productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus} = res.data
-            // const array = [productName,numDaysToExpire,pesticideInfo,packager,location,managerInfo,inspection,halaalCert, dateProcessed, batchNumber, freshNess, gmoStatus]
-            // array.push()
-            // setResult(array)
-            // console.log(result)
+            const handleScan = data => {
+         
+                alert(data)
+             }
+         
+             const handleError = (err) => {
+                 alert("Please allow carema permissions")
+                 console.error(err)
+             }
+         
         }
+        d()
         
     }, []);
 
-    const handleScan = data => {
-         
-       alert(data)
-    }
-
-    const handleError = (err) => {
-        alert("Please allow carema permissions")
-        console.error(err)
-    }
-
+    
 
     return (
         <div className="main">
