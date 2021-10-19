@@ -1,6 +1,7 @@
 import 'stream-chat-react/dist/css/index.css';
 import '../styles/globals.css'
 import '../styles/CustomPreview.css'
+import '../styles/fonts.css'
 import ProgressBar from "@badrap/bar-of-progress";
 import Router from 'next/router'
 import {useEffect} from 'react'

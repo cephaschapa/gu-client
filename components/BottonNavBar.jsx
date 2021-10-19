@@ -33,15 +33,15 @@ const BottomNavBar = () =>{
                     path==='/weather'? <div className="h-2 w-2 rounded-full bg-green-600 absolute top-12"></div>:null
                 }
             </div>
-            <div className="flexflex flex-col items-center justify-center rounded-full">
+            <div className="flex flex-col items-center justify-center rounded-full">
                 <ShoppingBagIcon
                     className="h-6 w-6 text-gray-500"
                     onClick={() => {
-                        router.push('chat/')
+                        router.push('store/')
                 }}
                 /> 
                 {
-                    path==='/chat'? <div className="h-2 w-2 rounded-full bg-green-600 absolute top-12"></div>:null
+                    path==='/store'? <div className="h-2 w-2 rounded-full bg-green-600 absolute top-12"></div>:null
                 }
             </div>
             <div className="flex flex-col items-center">

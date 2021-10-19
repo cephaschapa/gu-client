@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-
+/* @font-face{
+  font-family: 'AllianceNo2-Light';
+  src: url('/webFonts/font.woff2')
+} */
 html {
   font-family: 'Quicksand', sans-serif !important;
+  font-family: 'AllianceNo2-Light';
   scroll-behavior: smooth;
 }
 .stories{

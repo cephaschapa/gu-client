@@ -1,0 +1,27 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 4194851, 2021-10-15T14:29:33-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: AllianceNo.2-Light by Degarism Studio
+ * URL: https://www.myfonts.com/fonts/degarism-studio/alliance/2-light/
+ * Copyright: Copyright © 2017 by Deni Anggara. All rights reserved.
+ * 
+ * 
+ * 
+ * © 2021 MyFonts Inc
+*/
+
+
+
+  
+@font-face {
+  font-family: "AllianceNo2-Light";
+  src: url('webFonts/AllianceNo2Light/font.woff2') format('woff2'), url('webFonts/AllianceNo2Light/font.woff') format('woff');
+}
+
