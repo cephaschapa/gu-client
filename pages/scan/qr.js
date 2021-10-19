@@ -32,8 +32,9 @@ function Qr() {
     }, []);
 
     const handleScan = data => {   
-       console.log(data)   
-       router.push(`/results?=${data}`)
+       if(data !== null) {
+            router.push(`scan/results?data=${data}`)
+       }
     }
 
     const handleError = (err) => {
