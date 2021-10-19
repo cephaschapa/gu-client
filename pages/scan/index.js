@@ -6,6 +6,7 @@ import {useRouter} from 'next/router'
 import Header from '../../components/Header'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
+import { CameraIcon, ChevronDoubleRightIcon, ChevronRightIcon, FilterIcon, ShoppingCartIcon, ViewListIcon } from "@heroicons/react/outline";
 
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
@@ -14,8 +15,9 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
 
 
 
-function Dashboard() {
+function Scan() {
     const [result, setResult] = useState([])
+    const router = useRouter()
     useEffect(() => {
         async function d(){
             // const res = await axios.get('http://localhost:3000/api/hello')
@@ -29,8 +31,6 @@ function Dashboard() {
         
     }, []);
 
-    
-    
     const handleScan = data => {
          
        if(dats){
@@ -93,58 +93,150 @@ function Dashboard() {
             </Head>
             <Header />
             <section className=" justify-center items-center h-screen pt-20 px-4 rounded-2xl">
-                <QrReader
-                    className=""
-                    delay={300}
-                    onError={handleError}
-                    onScan={handleScan}
-                    style={{ width: "100%", backgroundColor: "black"}}
     
-                />
-                {
-                    result ? <div className="grid grid-cols-1 pt-3 space-y-3 pb-20">
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">Package Name</p>
-                        {result[0]}
+                <div onClick={()=>router.push('scan/qr')} className="flex flex-col fixed bottom-20 right-2 transition duration-200 shadow-xl float-right  items-center justify-center h-16 w-16 rounded-full bg-green-600 z-20">
+                    
+                    <CameraIcon className="h-6 w-6 text-white"/>
+                    {/* <span className="text-sm">K400</span> */}
+                </div>
+                <div className="flex justify-between space-x-1 items-center text-gray-600 pb-4 border-b border-gray-300">
+                    <div className="flex items-center space-x-1">
+                        <ViewListIcon className="h-6 w-6 "/>
+                        <p className="font-bold text-lg">History</p>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                    <p className="text-sm text-gray-400">Freshness</p>
-                        {result[10]}
+                    <div className="flex items-center">
+                        <FilterIcon className="h-6 w-6 "/>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">GMO Status</p>
-                        {result[11]}
+                </div>
+                <div className="py-2 space-y-2">
+                    <p className="font-bold">Today</p>
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/apples.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Mediterranean Red Apples</p>
+                            <p className="">Shop XYZ</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">Date Processed</p>
-                        {result[8]}
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/banana.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Bananas</p>
+                            <p className="">Shop XYZ</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">Number of Days to Expiration</p>
-                        {result[1]}
+                    <p className="font-bold">Yesterday</p>
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/pineapples.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Pineapples</p>
+                            <p className="">Shop ABC</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">Packager</p>
-                        {result[3]}
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/cabbage.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Cabbage</p>
+                            <p className="">Shop ABC</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                    <p className="text-sm text-gray-400">Inspections Status</p>
-                        {result[6]}
+                    <p className="font-bold">Sunday</p>
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/pineapples.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Pineapples</p>
+                            <p className="">Shop ABC</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">Source Location</p>
-                        {result[4]}
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/cabbage.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Cabbage</p>
+                            <p className="">Shop ABC</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">Pesticide Info</p>
-                        {result[2]}
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/pineapples.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Pineapples</p>
+                            <p className="">Shop ABC</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                    <div className="p-4 border border-gray-100 rounded-2xl shadow-md">
-                        <p className="text-sm text-gray-400">Batch Number</p>
-                        {result[9]}
+                    <div className="flex space-x-2 p-2 bg-gray-100 rounded-2xl">
+                        <div className="relative h-16 w-16">
+                            <Image src="/cabbage.jpg" objectFit="cover" layout="fill" className="rounded-2xl"/>
+                        </div>
+                        <div className="flex justify-center flex-col">
+                            <p className="font-bold">Cabbage</p>
+                            <p className="">Shop ABC</p>
+                            
+                        </div>
+                        <div className="flex flex-grow justify-end">
+                            <button className="">
+                                <ChevronRightIcon className="h-8 w-8 bg-green-600 p-1 text-white rounded-full" />
+                            </button>
+                        </div>
                     </div>
-                </div>: <div className="flex justify-center items-center h-20">Point the camera at the QR Code</div>
-                }
+                </div>
+                
+            </section>
+            <section className="px-4">
+                
             </section>
             <nav className="">
                 <BottomNavBar />
@@ -153,4 +245,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default Scan

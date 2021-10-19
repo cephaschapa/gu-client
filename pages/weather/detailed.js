@@ -264,9 +264,9 @@ function Detailed() {
                         </div>
                 </div>
             </section>
-            <nav className="">
+            {/* <nav className="">
                 <BottomNavBar />
-            </nav> 
+            </nav>  */}
         </div>
     )
 }
