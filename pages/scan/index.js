@@ -7,7 +7,8 @@ import Header from '../../components/Header'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
 import { CameraIcon, ChevronDoubleRightIcon, ChevronRightIcon, FilterIcon, ShoppingCartIcon, ViewListIcon } from "@heroicons/react/outline";
-
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
     ssr: false

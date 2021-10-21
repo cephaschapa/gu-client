@@ -7,6 +7,8 @@ import Header from '../../components/Header'
 import dynamic from 'next/dynamic'
 import axios from 'axios'
 import { CameraIcon, ChevronDoubleRightIcon, ChevronRightIcon, FilterIcon, ShoppingCartIcon, ViewListIcon } from "@heroicons/react/outline";
+import PuffLoader from "react-spinners/PuffLoader";
+import { css } from "@emotion/react";
 
 
 const QrReader = dynamic(() => import('react-qr-reader'), {
@@ -18,6 +20,9 @@ const QrReader = dynamic(() => import('react-qr-reader'), {
 function Qr() {
     const [result, setResult] = useState([])
     const router = useRouter()
+    const [data, setData] = useState(false)
+    let [color, setColor] = useState("#16a085");
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         async function d(){
             // const res = await axios.get('http://localhost:3000/api/hello')
@@ -31,8 +36,13 @@ function Qr() {
         
     }, []);
 
-    const handleScan = data => {   
+    const handleScan = data => {
+        if(data === null){
+            setData(true);
+        }
        if(data !== null) {
+            setData(false);
+            setLoading(true);
             router.replace(`/scan/results?data=${data}`)
        }
     }
@@ -42,6 +52,11 @@ function Qr() {
         console.error(err)
     }
 
+    const override = css`
+        display: block;
+        margin: 0 auto;
+        border-color: #16a085;
+        `;
 
     return (
         <div className="main">
@@ -62,7 +77,11 @@ function Qr() {
                         style={{ width: "100%", backgroundColor: "black"}}
                     />
                 </div>
-                <div className="flex justify-center py-5">
+                <div className="flex items-center flex-col justify-center py-5 px-4 space-y-3">
+                    {
+                        !data ? <p>Place your camera in front of the QR Code</p>: null
+                    }
+                    <PuffLoader color={color} loading={loading} css={override} size={60} />
                     <button onClick={() =>{
                         router.push('/scan')
                     }}  className="rounded-full shadow-md bg-green-600 w-1/2 p-4 text-white">Cancel Scan</button>

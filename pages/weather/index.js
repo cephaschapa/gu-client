@@ -15,7 +15,7 @@ import cities from 'cities.json'
 
 const API_KEY = "6082c815ee7a42b5994518e03b5c0e68"
 function Home() {
-    const [loading, setLoading] = useState(true)
+    
     const [data, setData] = useState()
     const [location, setLocation] = useState()
     const [day, setDay] = useState(1)
