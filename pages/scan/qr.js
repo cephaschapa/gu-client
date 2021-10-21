@@ -22,7 +22,7 @@ function Qr() {
     const router = useRouter()
     const [data, setData] = useState(false)
     let [color, setColor] = useState("#16a085");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         async function d(){
             // const res = await axios.get('http://localhost:3000/api/hello')
@@ -38,7 +38,7 @@ function Qr() {
 
     const handleScan = data => {
         if(data === null){
-            setData(true);
+            setData(data);
         }
        if(data !== null) {
             setData(false);
@@ -79,9 +79,10 @@ function Qr() {
                 </div>
                 <div className="flex items-center flex-col justify-center py-5 px-4 space-y-3">
                     {
-                        !data ? <p>Place your camera in front of the QR Code</p>: null
+                        data=== null? <p>Place your camera in front of the QR Code. 🙄</p>: null
                     }
                     <PuffLoader color={color} loading={loading} css={override} size={60} />
+                    
                     <button onClick={() =>{
                         router.push('/scan')
                     }}  className="rounded-full shadow-md bg-green-600 w-1/2 p-4 text-white">Cancel Scan</button>
