@@ -48,7 +48,7 @@ function Qr() {
     }
 
     const handleError = (err) => {
-        alert("Please allow carema permissions")
+        alert("Please allow carema permissions and reload page.")
         console.error(err)
     }
 
@@ -85,7 +85,7 @@ function Qr() {
                     
                     <button onClick={() =>{
                         router.push('/scan')
-                    }}  className="rounded-full shadow-md bg-green-600 w-1/2 p-4 text-white">Cancel Scan</button>
+                    }}  className="rounded-full shadow-md bg-green-600 w-1/2 p-4 text-white font-bold uppercase">Cancel Scan</button>
                 </div>
             </section>
             
