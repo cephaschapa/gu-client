@@ -46,21 +46,31 @@ function Home() {
     } })
 
     useEffect(() => {
-        fetch('https://extreme-ip-lookup.com/json/')
-        .then( res => res.json())
-        .then( response  => {
-            console.log("Country is : ", response);
-            setLocation(response)
-          axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
-              console.log(response.data.daily[1].weather[0].icon)
-              console.log(response)
-              setData(response.data)
-          }).catch(error => {
-            //   alert(error.message)
-              setError(error.message)
-          })
-            
+        // Get ip address
+        axios.get('https://api.ipify.org?format=json').then(result => {
+            let ip = result.data.ip
+            if(ip){
+                axios.get(`http://ip-api.com/json/${ip}`).then(result => {
+                    console.log(result)
+                    let response = result.data
+                    setLocation(response)
+                    axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
+                        console.log(response.data.daily[1].weather[0].icon)
+                        console.log(response)
+                        setData(response.data)
+                    }).catch(error => {
+                        //   alert(error.message)
+                        setError(error.message)
+                    })
+                })
+                console.log(ip)
+            }
+
         })
+        // .then( res => res.json())
+        
+        
+       
     },[])
     useEffect(() => {
         const date = new Date()

@@ -29,20 +29,20 @@ function Detailed() {
     const [data, setData]= useState()
     useEffect(() => {
         async function fetchData(){
-            await axios.get('https://extreme-ip-lookup.com/json/').then((pos) => {
+            await axios.get('https://api.ipify.org?format=json').then((pos) => {
                 // console.log(pos)
                 
-                axios.get(`https://ip-geo-location.p.rapidapi.com/ip/${pos.data.query}`,{
+                axios.get(`https://ip-geo-location.p.rapidapi.com/ip/${pos.data.ip}`,{
                 headers: {
                     'x-rapidapi-host': 'ip-geo-location.p.rapidapi.com',
                     'x-rapidapi-key': 'fee96f23c6msh365b9b203912988p1232dejsn23884fec28e3'
                   }
             }).then((loc) => {
-                // console.log(loc)
+                console.log(loc)
                
-                axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${pos.data.lat}&lon=${pos.data.lon}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
+                axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${loc.data.location.latitude}&lon=${loc.data.location.latitude}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
                     // console.log(response.data.daily[1].weather[0].icon)
-                    // console.log(response)
+                    console.log(response)
                     setData(response.data)
                 })
                 setLocation(loc.data)
