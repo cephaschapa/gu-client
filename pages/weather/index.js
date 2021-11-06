@@ -17,13 +17,14 @@ const API_KEY = "6082c815ee7a42b5994518e03b5c0e68"
 function Home() {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState()
-    const [location, setLocation] = useState()
+    const [location, setLocation] = useState([])
     const [day, setDay] = useState(1)
     const [current, setCurrent] = useState(0)
     const router = useRouter()
     const [overlay, setOverlay] = useState(false)
     const [error,setError] = useState('')
     const [query, setQuery] = useState('')
+    const [err, setErr] =  useState(false)
     
     // const [result, setResult] = useState('')
     let [color, setColor] = useState("#16a085");
@@ -46,17 +47,36 @@ function Home() {
     } })
 
     useEffect(() => {
-        // Get ip address
-        axios.get('https://api.ipify.org?format=json').then(result => {
+    
+        var options = { 
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+          };
+          let cords = []
+          let latitude = ''
+          let longitude = ''
+          function success(pos) {
+            let crd =  pos.coords;
+           
+            latitude = crd.latitude
+            longitude = crd.longitude;
+            
+            setLocation(crd)
+            axios.get('https://api.ipify.org?format=json').then(result => {
             let ip = result.data.ip
             if(ip){
-                axios.get(`http://ip-api.com/json/${ip}`).then(result => {
-                    console.log(result)
+                axios.get(`https://ip-geo-location.p.rapidapi.com/ip/${ip}`,{
+                    headers: {
+                        'x-rapidapi-host': 'ip-geo-location.p.rapidapi.com',
+                        'x-rapidapi-key': 'fee96f23c6msh365b9b203912988p1232dejsn23884fec28e3'
+                    }}).then(result => {
+                   
                     let response = result.data
-                    setLocation(response)
-                    axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${response.lat}&lon=${response.lon}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
-                        console.log(response.data.daily[1].weather[0].icon)
-                        console.log(response)
+                    let loc = {city:response.city.name, country:response.country.name}
+                    console.log(loc)
+                    setLocation(loc)
+                    axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&appid=${API_KEY}`).then(response=>{
                         setData(response.data)
                     }).catch(error => {
                         //   alert(error.message)
@@ -66,10 +86,17 @@ function Home() {
                 console.log(ip)
             }
 
-        })
-        // .then( res => res.json())
-        
-        
+            })
+          } 
+          
+          
+          function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+            // alert('You wont be ablbe to access weather data.')
+            setErr(true)
+          } 
+
+         navigator.geolocation.getCurrentPosition(success, error, options);
        
     },[])
     useEffect(() => {
@@ -97,9 +124,16 @@ function Home() {
     }
     if(!data) {
         return <div className="flex flex-col justify-center h-screen w-full items-center">
-                    <p className="text-3xl text-green-500">Greenupp Weather</p>
-                    <p className="text-center mb-10 text-gray-500">Precision Weather</p>
-                    <PuffLoader color={color} loading={loading} css={override} size={60} />
+                    
+                    {
+                        !err? <>
+                                <p className="text-3xl text-green-500">Greenupp Weather</p>
+                                <p className="text-center mb-10 text-gray-500">Precision Weather</p>
+                                <PuffLoader color={color} loading={loading} css={override} size={60} /></>:
+                                <>   <ExclamationCircleIcon className="h-10 w-10 text-green-600"/>
+                                    <p className="text-gray-400 text-center p-2">This service requires location to be on. Please allow or turn on your location.</p> 
+                                 </>
+                    }
                 </div>
     }
     
